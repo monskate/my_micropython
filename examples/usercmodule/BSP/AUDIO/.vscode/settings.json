@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "baidugpt.h": "c",
+        "vector": "c",
+        "xutility": "c"
+    }
+}

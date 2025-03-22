@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "remap_table.h": "c",
+        "initializer_list": "c",
+        "list": "c",
+        "utility": "c",
+        "vector": "c",
+        "xutility": "c"
+    }
+}
