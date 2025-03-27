@@ -35,7 +35,7 @@
 #elif CONFIG_IDF_TARGET_ESP32S2 && !CONFIG_SPIRAM
 #define MICROPY_GC_INITIAL_HEAP_SIZE        (36 * 1024)
 #else
-#define MICROPY_GC_INITIAL_HEAP_SIZE        (64 * 1024)
+#define MICROPY_GC_INITIAL_HEAP_SIZE        (128 * 1024)
 #endif
 #endif
 

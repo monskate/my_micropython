@@ -40,12 +40,9 @@ void face_detection_task(void *pvParameters) {
     HumanFaceDetectMNP01 detector2(0.4F, 0.3F, 10);
     while (true) {
         camera_fb_t *frame = esp_camera_fb_get();
-        printf("idf1\n");
         if (frame != NULL) {
             std::list<dl::detect::result_t> &detect_candidates = detector.infer((uint16_t *)frame->buf, {(int)frame->height, (int)frame->width, 3});
             std::list<dl::detect::result_t> &detect_results = detector2.infer((uint16_t *)frame->buf, {(int)frame->height, (int)frame->width, 3}, detect_candidates);
-            printf("idf2\n");
-            // xSemaphoreTake(face_mutex, portMAX_DELAY);
             face_result.num = detect_results.size();
             if (!detect_results.empty()) {
                 auto prediction = detect_results.begin();
@@ -97,7 +94,6 @@ mp_obj_t esp_face_detection(void) {
         mp_obj_new_int(face_result.y1),
         mp_obj_new_int(face_result.y2)
     };
-    printf("jieguo\n");
     // xSemaphoreGive(face_mutex);
     return mp_obj_new_list(5, elements);
 }
