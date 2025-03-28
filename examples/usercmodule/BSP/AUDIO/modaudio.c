@@ -161,8 +161,8 @@ static mp_obj_t esp_audio_ai_start(void)
     afe_data = afe_handle->create_from_config(&afe_config);
     
     task_flag = 1;
-    xTaskCreatePinnedToCore(&detect_Task, "detect", 8 * 1024, (void *)afe_data, 1, NULL, 1);
-    xTaskCreatePinnedToCore(&feed_Task, "feed", 8 * 1024, (void *)afe_data, 1, NULL, 0);
+    xTaskCreatePinnedToCore(&detect_Task, "detect", 3 * 1024, (void *)afe_data, 1, NULL, 1);
+    xTaskCreatePinnedToCore(&feed_Task, "feed", 3 * 1024, (void *)afe_data, 1, NULL, 0);
     return mp_const_true;
 }
 static MP_DEFINE_CONST_FUN_OBJ_0(audio_ai_start, esp_audio_ai_start);
