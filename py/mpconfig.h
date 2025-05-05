@@ -2028,7 +2028,7 @@ typedef double mp_float_t;
 // Allocating new heap area at runtime requires port to be able to allocate from system heap
 #if MICROPY_GC_SPLIT_HEAP_AUTO
 #ifndef MP_PLAT_ALLOC_HEAP
-#define MP_PLAT_ALLOC_HEAP(size) malloc(size)
+#define MP_PLAT_ALLOC_HEAP(size) heap_caps_malloc(size, MALLOC_CAP_SPIRAM)
 #endif
 #ifndef MP_PLAT_FREE_HEAP
 #define MP_PLAT_FREE_HEAP(ptr) free(ptr)

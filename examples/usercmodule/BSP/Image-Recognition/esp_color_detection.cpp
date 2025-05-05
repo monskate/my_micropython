@@ -116,8 +116,8 @@ static void color_recognition_task(void *arg) {
                 for (int j = 0; j < results[i].size(); ++j) {
                     int x = results[i][j].center[0];
                     int y = results[i][j].center[1];
-                    color_result.x = x;
-                    color_result.y = y;
+                    color_result.x = x - 160;
+                    color_result.y = 120 - y;
                 }
             }
         }
@@ -156,7 +156,8 @@ mp_obj_t esp_color_discern(void) {
 
     // 返回颜色位置
     mp_obj_t elements[] = {x, y};
-    return mp_obj_new_list(2, elements);}
+    return mp_obj_new_list(2, elements);
+}
 
 mp_obj_t esp_color_deinit(void) {
     if (color_task_handle != NULL) {

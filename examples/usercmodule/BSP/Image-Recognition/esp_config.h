@@ -26,7 +26,10 @@
 #define RGB565_MASK_BLUE        0x001F
 
 
-
+extern mp_obj_t esp_color_rgb_init(void);
+extern mp_obj_t esp_color_rgb(void);
+extern mp_obj_t esp_color_set_region(mp_obj_t x_obj, mp_obj_t y_obj, mp_obj_t w_obj, mp_obj_t h_obj);
+extern mp_obj_t esp_color_rgb_deinit(void);
 
 extern mp_obj_t esp_face_discern(void);
 extern mp_obj_t esp_face_init(void);
@@ -46,4 +49,7 @@ extern mp_obj_t esp_face_detection_init(void);
 extern mp_obj_t esp_face_detection_deinit(void);
 extern mp_obj_t esp_face_detection(void);
 
+extern mp_obj_t esp_cat_detection_init(void);
+extern mp_obj_t esp_cat_detection_deinit(void);
+extern mp_obj_t esp_cat_detection(void);
 #endif

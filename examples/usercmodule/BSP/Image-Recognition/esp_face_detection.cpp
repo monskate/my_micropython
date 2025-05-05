@@ -25,11 +25,9 @@ extern "C"
 // 定义队列的数据结构
 static struct {
     int num;
-    int x1;
-    int y1;
-    int x2;
-    int y2;
-} face_result = {0, 0, 0, 0, 0};
+    int x;
+    int y;
+} face_result = {0, 0, 0};
 
 static TaskHandle_t face_task_handle = NULL;
 static SemaphoreHandle_t face_mutex = NULL;
@@ -43,13 +41,13 @@ void face_detection_task(void *pvParameters) {
         if (frame != NULL) {
             std::list<dl::detect::result_t> &detect_candidates = detector.infer((uint16_t *)frame->buf, {(int)frame->height, (int)frame->width, 3});
             std::list<dl::detect::result_t> &detect_results = detector2.infer((uint16_t *)frame->buf, {(int)frame->height, (int)frame->width, 3}, detect_candidates);
+            face_result.x = 0;
+            face_result.y = 0;
             face_result.num = detect_results.size();
             if (!detect_results.empty()) {
                 auto prediction = detect_results.begin();
-                face_result.x1 = prediction->box[0];
-                face_result.x2 = prediction->box[1];
-                face_result.y1 = prediction->box[2];
-                face_result.y2 = prediction->box[3];
+                face_result.x = ((prediction->box[0] + prediction->box[2]) / 2) - 160;
+                face_result.y = 120 - ((prediction->box[1] + prediction->box[3]) / 2);
             }
             // xSemaphoreGive(face_mutex);
             
@@ -89,11 +87,9 @@ mp_obj_t esp_face_detection(void) {
     // xSemaphoreTake(face_mutex, portMAX_DELAY);
     mp_obj_t elements[] = {
         mp_obj_new_int(face_result.num),
-        mp_obj_new_int(face_result.x1),
-        mp_obj_new_int(face_result.x2),
-        mp_obj_new_int(face_result.y1),
-        mp_obj_new_int(face_result.y2)
+        mp_obj_new_int(face_result.x),
+        mp_obj_new_int(face_result.y),
     };
     // xSemaphoreGive(face_mutex);
-    return mp_obj_new_list(5, elements);
+    return mp_obj_new_list(3, elements);
 }

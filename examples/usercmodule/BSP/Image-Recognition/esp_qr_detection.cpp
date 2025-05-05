@@ -68,7 +68,9 @@ void qr_recognition_task(void *arg)
             }
             
             esp_camera_fb_return(camera_frame);
+            
         }
+        vTaskDelay(pdMS_TO_TICKS(150)); 
     }
 }
 
